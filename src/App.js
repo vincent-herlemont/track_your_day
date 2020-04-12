@@ -1,24 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useContext} from 'react';
 import './App.css';
+import {Redirect, Router} from "@reach/router"
+import AddWorkspace from "./pages/add_workspace";
+import Workspaces from "./pages/workspaces";
+import AddTrack from "./pages/add_track";
+import Explore from "./pages/explore";
+import Workspace from "./pages/workspace";
+import {DataWorkspaces, DataWorkspacesContext} from "./data";
+
+
+let EntryRedirect = () => {
+ let data_workspaces = useContext(DataWorkspacesContext);
+ let current_workspace = data_workspaces.workspaces[0];
+ return (
+  <Redirect noThrow to={"workspaces/" + current_workspace.id} />
+ )
+}
 
 function App() {
+ 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     <DataWorkspacesContext.Provider value={DataWorkspaces}>
+      <Router>
+       <EntryRedirect path="/" />
+       <AddWorkspace path="workspaces/add" />
+       <Workspaces path="workspaces" />
+       <Workspace path="workspaces/:workspaceId" />
+       <AddTrack path="tracks/add" />
+       <Explore path="workspaces/:workspaceId/explore" />
+      </Router>
+     </DataWorkspacesContext.Provider>
     </div>
   );
 }
