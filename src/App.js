@@ -6,18 +6,17 @@ import Workspaces from './pages/workspaces'
 import AddTrack from './pages/add_track'
 import Explore from './pages/explore'
 import Workspace from './pages/workspace'
-import {DataWorkspaces, DataWorkspacesContext} from './data'
+import {GlobalContext, GlobalContextProvider} from './context/Global'
 
 let EntryRedirect = () => {
-    let data_workspaces = useContext(DataWorkspacesContext)
-    let current_workspace = data_workspaces.workspaces[0]
-    return <Redirect noThrow to={'workspaces/' + current_workspace.id} />
+    let {firstWorkSpace} = useContext(GlobalContext)
+    return <Redirect noThrow to={'workspaces/' + firstWorkSpace().id} />
 }
 
 function App() {
     return (
-        <div className="App">
-            <DataWorkspacesContext.Provider value={DataWorkspaces}>
+        <GlobalContextProvider>
+            <div className="App">
                 <Router>
                     <EntryRedirect path="/" />
                     <AddWorkspace path="workspaces/add" />
@@ -26,8 +25,8 @@ function App() {
                     <AddTrack path="tracks/add" />
                     <Explore path="workspaces/:workspaceId/explore" />
                 </Router>
-            </DataWorkspacesContext.Provider>
-        </div>
+            </div>
+        </GlobalContextProvider>
     )
 }
 

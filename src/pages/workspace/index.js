@@ -1,16 +1,19 @@
 import React, {useContext} from 'react'
 import {useParams} from '@reach/router'
-import {DataWorkspacesContext} from '../../data'
+import {GlobalContext} from '../../context/Global'
 
 let Workspace = () => {
     let params = useParams()
-    let data_workspace = useContext(DataWorkspacesContext)
-    let current_workspace = data_workspace.workspaces.find(
-        el => el.id === params.workspaceId
-    )
+    let {workspaceById, updateWorkspaceById} = useContext(GlobalContext)
+    let workspace = workspaceById(params.workspaceId)
+    let handleSetName = event => {
+        updateWorkspaceById(workspace.id, {name: event.target.value})
+    }
     return (
         <div>
-            <div>Workspace id : {current_workspace.name}</div>
+            <div>Workspace id : {workspace.id}</div>
+            <div>Workspace name : {workspace.name}</div>
+            <input value={workspace.name} onChange={handleSetName} />
         </div>
     )
 }
