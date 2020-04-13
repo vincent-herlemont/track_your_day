@@ -1,11 +1,7 @@
-import React from "react";
+import React from 'react'
 
 let AddTrack = () => {
- return (
-  <div>
-   List workspace
-  </div>
- )
+    return <div>List workspace</div>
 }
 
-export default AddTrack;
+export default AddTrack

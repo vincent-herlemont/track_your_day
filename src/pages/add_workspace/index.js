@@ -1,11 +1,7 @@
-import React from "react";
+import React from 'react'
 
 let AddWorkspace = () => {
- return (
-  <div>
-   Add Workspace
-  </div>
- )
+    return <div>Add Workspace</div>
 }
 
-export default AddWorkspace;
+export default AddWorkspace
