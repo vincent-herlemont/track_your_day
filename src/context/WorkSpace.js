@@ -7,9 +7,9 @@ const dataWorkspaces = [
     },
 ]
 
-export const GlobalContext = React.createContext(null)
+export const WorkspaceContext = React.createContext(null)
 
-export const GlobalContextProvider = ({children}) => {
+export const WorkspaceContextProvider = ({children}) => {
     const [workspaces, setWorkspaces] = useState(dataWorkspaces)
 
     const store = {
@@ -30,8 +30,8 @@ export const GlobalContextProvider = ({children}) => {
     }
 
     return (
-        <GlobalContext.Provider value={store}>
+        <WorkspaceContext.Provider value={store}>
             {children}
-        </GlobalContext.Provider>
+        </WorkspaceContext.Provider>
     )
 }

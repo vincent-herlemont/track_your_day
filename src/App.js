@@ -6,16 +6,16 @@ import Workspaces from './pages/workspaces'
 import AddTrack from './pages/add_track'
 import Explore from './pages/explore'
 import Workspace from './pages/workspace'
-import {GlobalContext, GlobalContextProvider} from './context/Global'
+import {WorkspaceContext, WorkspaceContextProvider} from './context/WorkSpace'
 
 let EntryRedirect = () => {
-    let {firstWorkSpace} = useContext(GlobalContext)
+    let {firstWorkSpace} = useContext(WorkspaceContext)
     return <Redirect noThrow to={'workspaces/' + firstWorkSpace().id} />
 }
 
 function App() {
     return (
-        <GlobalContextProvider>
+        <WorkspaceContextProvider>
             <div className="App">
                 <Router>
                     <EntryRedirect path="/" />
@@ -26,7 +26,7 @@ function App() {
                     <Explore path="workspaces/:workspaceId/explore" />
                 </Router>
             </div>
-        </GlobalContextProvider>
+        </WorkspaceContextProvider>
     )
 }
 

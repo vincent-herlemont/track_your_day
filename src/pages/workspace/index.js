@@ -1,10 +1,10 @@
 import React, {useContext} from 'react'
 import {useParams} from '@reach/router'
-import {GlobalContext} from '../../context/Global'
+import {WorkspaceContext} from '../../context/WorkSpace'
 
 let Workspace = () => {
     let params = useParams()
-    let {workspaceById, updateWorkspaceById} = useContext(GlobalContext)
+    let {workspaceById, updateWorkspaceById} = useContext(WorkspaceContext)
     let workspace = workspaceById(params.workspaceId)
     let handleSetName = event => {
         updateWorkspaceById(workspace.id, {name: event.target.value})
