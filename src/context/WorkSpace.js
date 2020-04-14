@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import {WorkspaceId} from '../utils/Id'
 
 const dataWorkspaces = [
     {
@@ -29,6 +30,13 @@ export const WorkspaceContextProvider = ({children}) => {
                 return prevState.map(el =>
                     el.id === id ? {...el, ...workspace} : el
                 )
+            })
+        },
+        addWorkspace: workspace => {
+            setWorkspaces(prevState => {
+                let id = WorkspaceId(workspaces)
+                workspace = {...workspace, id}
+                return prevState.concat([workspace])
             })
         },
     }
