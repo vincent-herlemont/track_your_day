@@ -1,11 +1,9 @@
-import React, {useContext, useState} from 'react'
+import React, {useState} from 'react'
 import Nav from '../../components/nav'
-import {WorkspaceContext} from '../../context/WorkSpace'
+import useTrack from '../../utils/hooks/useTrack'
 
 let AddTrack = () => {
-    let {tracks, setTrackById, addTrack, removeTrackById} = useContext(
-        WorkspaceContext
-    )
+    let {tracks, setTrackById, addTrack, removeTrackById} = useTrack()
 
     // Update title of track
     let handleSetTitle = id => {

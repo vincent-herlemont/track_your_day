@@ -1,7 +1,6 @@
 import React, {useContext} from 'react'
 import {WorkspaceContext} from '../../context/WorkSpace'
 import useWorkspace from '../../utils/hooks/useWorkspace'
-import {Link} from '@reach/router'
 import Nav from '../../components/nav'
 
 let Workspace = ({uri}) => {

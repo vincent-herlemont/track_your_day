@@ -1,7 +1,7 @@
 import React, {useContext, useState} from 'react'
 import Nav from '../../components/nav'
 import {WorkspaceContext} from '../../context/WorkSpace'
-import {navigate, redirectTo} from '@reach/router'
+import {navigate} from '@reach/router'
 
 let AddWorkspace = () => {
     let {addWorkspace} = useContext(WorkspaceContext)

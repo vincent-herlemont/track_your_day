@@ -17,7 +17,7 @@ export let WorkspaceId = (workspaces, count = 0) => {
     if (count > 5) {
         throw 'to much tracks, please delete one'
     }
-    let id = nanoid(5)
+    let id = nanoid(10)
     let find = workspaces.find(el => el.id === id)
     if (find) {
         count = count + 1
