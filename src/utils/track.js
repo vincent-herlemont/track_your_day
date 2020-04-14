@@ -1,9 +1,22 @@
-import {TrackId} from './Id'
+import {nanoid} from 'nanoid'
+
+const trackId = (tracks, count = 0) => {
+    if (count > 5) {
+        throw 'to much tracks, please delete one'
+    }
+    let id = nanoid(3)
+    let find = tracks.find(el => el.id === id)
+    if (find) {
+        count = count + 1
+        return trackId(tracks, count)
+    }
+    return id
+}
 
 const newTrack = (tracks, track) => {
     return {
         ...track,
-        id: TrackId(tracks),
+        id: trackId(tracks),
     }
 }
 

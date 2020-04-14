@@ -1,9 +1,16 @@
 import React, {useState} from 'react'
 import Nav from '../../components/nav'
 import useTrack from '../../utils/hooks/useTrack'
+import {navigate} from '@reach/router'
 
 let AddTrack = () => {
-    let {tracks, setTrackById, addTrack, removeTrackById} = useTrack()
+    let {
+        tracks,
+        setTrackById,
+        addTrack,
+        removeTrackById,
+        startTracking,
+    } = useTrack()
 
     // Update title of track
     let handleSetTitle = id => {
@@ -30,6 +37,14 @@ let AddTrack = () => {
         }
     }
 
+    // Select track for start tracking
+    let handleStartTraking = trackId => {
+        return () => {
+            startTracking(trackId, {})
+            navigate('../')
+        }
+    }
+
     return (
         <div>
             <div>Select track</div>
@@ -37,14 +52,17 @@ let AddTrack = () => {
                 <ul>
                     {tracks.map(el => (
                         <li key={el.id}>
-                            <button onClick={handleRemoveTrack(el.id)}>
-                                x
+                            <button onClick={handleStartTraking(el.id)}>
+                                {'<='}
                             </button>
                             ({el.id})
                             <input
                                 value={el.title}
                                 onChange={handleSetTitle(el.id)}
                             />
+                            <button onClick={handleRemoveTrack(el.id)}>
+                                x
+                            </button>
                         </li>
                     ))}
                     <li>

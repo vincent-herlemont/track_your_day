@@ -5,9 +5,9 @@ import AddWorkspace from './pages/add_workspace'
 import Workspaces from './pages/workspaces'
 import AddTrack from './pages/add_track'
 import Explore from './pages/explore'
-import Workspace from './pages/workspace'
 import {WorkspaceContext, WorkspaceContextProvider} from './context/WorkSpace'
-import UseWorkspace from './components/route'
+import Workspace from './components/route'
+import Home from './pages/home'
 
 let EntryRedirect = () => {
     let {firstWorkSpace} = useContext(WorkspaceContext)
@@ -22,11 +22,11 @@ function App() {
                     <EntryRedirect path="/" />
                     <AddWorkspace path="workspaces/add" />
                     <Workspaces path="workspaces" />
-                    <UseWorkspace path="workspaces/:workspaceId/">
-                        <Workspace path="/" />
+                    <Workspace path="workspaces/:workspaceId/">
+                        <Home path="/" />
                         <AddTrack path="tracks/add" />
                         <Explore path="explore" />
-                    </UseWorkspace>
+                    </Workspace>
                 </Router>
             </div>
         </WorkspaceContextProvider>
