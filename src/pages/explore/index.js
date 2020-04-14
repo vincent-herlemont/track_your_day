@@ -1,9 +1,12 @@
 import React from 'react'
-import {useParams} from '@reach/router'
+import Nav from '../../components/nav'
 
 let Explore = () => {
-    let params = useParams()
-    return <div>Explore</div>
+    return (
+        <div>
+            <div>Explore</div> <Nav links={[{to: '../', title: 'back'}]} />
+        </div>
+    )
 }
 
 export default Explore

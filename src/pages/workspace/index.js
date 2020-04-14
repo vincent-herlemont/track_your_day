@@ -2,6 +2,7 @@ import React, {useContext} from 'react'
 import {WorkspaceContext} from '../../context/WorkSpace'
 import useWorkspace from '../../utils/hooks/useWorkspace'
 import {Link} from '@reach/router'
+import Nav from '../../components/nav'
 
 let Workspace = ({uri}) => {
     let workspace = useWorkspace()
@@ -16,7 +17,13 @@ let Workspace = ({uri}) => {
             <div>Workspace name : {workspace.name}</div>
             <input value={workspace.name} onChange={handleSetName} />
             <hr />
-            <Link to={'tracks/add'}>Add Track</Link>
+            <Nav
+                links={[
+                    {to: '/workspaces', title: 'workspaces'},
+                    {to: 'tracks/add', title: 'add track'},
+                    {to: 'explore', title: 'explore'},
+                ]}
+            />
         </div>
     )
 }
