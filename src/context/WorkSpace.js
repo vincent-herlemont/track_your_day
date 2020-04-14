@@ -5,14 +5,16 @@ const dataWorkspaces = [
     {
         id: 'A0',
         name: 'Track your day',
+        tracks: [],
     },
     {
         id: 'A1',
         name: 'Track your day 2',
+        tracks: [],
     },
 ]
 
-const dataTracks = [
+const defaultTracks = [
     {
         id: 'o_0',
         title: 'Work',
@@ -27,11 +29,22 @@ const dataTracks = [
     },
 ]
 
+let newTrack = (tracks, track) => {
+    return {
+        ...track,
+        id: TrackId(tracks),
+    }
+}
+
+let newWorkspace = (workspaces, workspace) => {
+    return {...workspace, id: WorkspaceId(workspaces), defaultTracks}
+}
+
 export const WorkspaceContext = React.createContext(null)
 
 export const WorkspaceContextProvider = ({children}) => {
     const [workspaces, setWorkspaces] = useState(dataWorkspaces)
-    const [tracks, setTracks] = useState(dataTracks)
+    const [tracks, setTracks] = useState(defaultTracks)
 
     const store = {
         /// -----------------------------------------
@@ -52,9 +65,7 @@ export const WorkspaceContextProvider = ({children}) => {
         },
         addWorkspace: workspace => {
             setWorkspaces(prevState => {
-                let id = WorkspaceId(workspaces)
-                workspace = {...workspace, id}
-                return prevState.concat([workspace])
+                return prevState.concat([newWorkspace(workspaces, workspace)])
             })
         },
         /// -----------------------------------------
@@ -67,13 +78,9 @@ export const WorkspaceContextProvider = ({children}) => {
                 )
             })
         },
-        addTrack: partialTrack => {
+        addTrack: track => {
             setTracks(prevState => {
-                let track = {
-                    ...partialTrack,
-                    id: TrackId(tracks),
-                }
-                return prevState.concat([track])
+                return prevState.concat([newTrack(tracks, track)])
             })
         },
         removeTrackById: id => {
