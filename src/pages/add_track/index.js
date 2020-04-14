@@ -1,10 +1,10 @@
 import React, {useContext, useState} from 'react'
-import {TrackContext} from '../../context/Track'
 import Nav from '../../components/nav'
+import {WorkspaceContext} from '../../context/WorkSpace'
 
 let AddTrack = () => {
     let {tracks, setTrackById, addTrack, removeTrackById} = useContext(
-        TrackContext
+        WorkspaceContext
     )
 
     // Update title of track

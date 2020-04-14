@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {WorkspaceId} from '../utils/Id'
+import {TrackId, WorkspaceId} from '../utils/Id'
 
 const dataWorkspaces = [
     {
@@ -12,12 +12,30 @@ const dataWorkspaces = [
     },
 ]
 
+const dataTracks = [
+    {
+        id: 'o_0',
+        title: 'Work',
+    },
+    {
+        id: 'qs0',
+        title: 'Learn',
+    },
+    {
+        id: '9oi',
+        title: 'Free time',
+    },
+]
+
 export const WorkspaceContext = React.createContext(null)
 
 export const WorkspaceContextProvider = ({children}) => {
     const [workspaces, setWorkspaces] = useState(dataWorkspaces)
+    const [tracks, setTracks] = useState(dataTracks)
 
     const store = {
+        /// -----------------------------------------
+        /// Workspaces
         workspaces,
         firstWorkSpace: () => {
             return workspaces[0]
@@ -37,6 +55,30 @@ export const WorkspaceContextProvider = ({children}) => {
                 let id = WorkspaceId(workspaces)
                 workspace = {...workspace, id}
                 return prevState.concat([workspace])
+            })
+        },
+        /// -----------------------------------------
+        /// Tracks
+        tracks,
+        setTrackById: (id, track) => {
+            setTracks(prevState => {
+                return prevState.map(el =>
+                    el.id === id ? {...el, ...track} : el
+                )
+            })
+        },
+        addTrack: partialTrack => {
+            setTracks(prevState => {
+                let track = {
+                    ...partialTrack,
+                    id: TrackId(tracks),
+                }
+                return prevState.concat([track])
+            })
+        },
+        removeTrackById: id => {
+            setTracks(prevState => {
+                return prevState.filter(el => el.id !== id)
             })
         },
     }
