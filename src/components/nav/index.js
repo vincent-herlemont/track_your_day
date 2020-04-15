@@ -1,15 +1,15 @@
 import React from 'react'
-import {Link} from '@reach/router'
+import StyledNav, {AnimatedNavLink} from './style'
 
 let Nav = ({links}) => {
     return (
-        <div>
+        <StyledNav>
             {links.map(el => (
-                <span key={el.title}>
-                    <Link to={el.to}>{el.title}</Link>{' '}
-                </span>
+                <AnimatedNavLink key={el.title} to={el.to}>
+                    {el.title}
+                </AnimatedNavLink>
             ))}
-        </div>
+        </StyledNav>
     )
 }
 
