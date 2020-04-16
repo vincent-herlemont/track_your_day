@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import StyledPage from '../style'
 
-const StyledHome = styled(StyledPage)``
+const StyledExplore = styled(StyledPage)``
 
-export default StyledHome
+export default StyledExplore

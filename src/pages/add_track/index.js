@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import Nav from '../../components/nav'
 import useTrack from '../../utils/hooks/useTrack'
 import {navigate} from '@reach/router'
+import StyledAddTrack from './styled'
 
 let AddTrack = () => {
     let {
@@ -46,37 +47,39 @@ let AddTrack = () => {
     }
 
     return (
-        <div>
-            <div>Select track</div>
+        <StyledAddTrack>
             <div>
-                <ul>
-                    {tracks.map(el => (
-                        <li key={el.id}>
-                            <button onClick={handleStartTraking(el.id)}>
-                                {'<='}
-                            </button>
-                            ({el.id})
-                            <input
-                                value={el.title}
-                                onChange={handleSetTitle(el.id)}
-                            />
-                            <button onClick={handleRemoveTrack(el.id)}>
-                                x
-                            </button>
+                <div>Select track</div>
+                <div>
+                    <ul>
+                        {tracks.map(el => (
+                            <li key={el.id}>
+                                <button onClick={handleStartTraking(el.id)}>
+                                    {'<='}
+                                </button>
+                                ({el.id})
+                                <input
+                                    value={el.title}
+                                    onChange={handleSetTitle(el.id)}
+                                />
+                                <button onClick={handleRemoveTrack(el.id)}>
+                                    x
+                                </button>
+                            </li>
+                        ))}
+                        <li>
+                            <form onSubmit={handleAddTrack}>
+                                <input
+                                    value={newTrack.title}
+                                    onChange={handleNewTrack}
+                                />
+                            </form>
                         </li>
-                    ))}
-                    <li>
-                        <form onSubmit={handleAddTrack}>
-                            <input
-                                value={newTrack.title}
-                                onChange={handleNewTrack}
-                            />
-                        </form>
-                    </li>
-                </ul>
+                    </ul>
+                </div>
             </div>
             <Nav links={[{to: '../../', title: 'back'}]} />
-        </div>
+        </StyledAddTrack>
     )
 }
 
