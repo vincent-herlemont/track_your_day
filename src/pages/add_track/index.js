@@ -42,7 +42,7 @@ let AddTrack = () => {
     let handleStartTraking = trackId => {
         return () => {
             startTracking(trackId, {})
-            navigate('../')
+            navigate('..')
         }
     }
 

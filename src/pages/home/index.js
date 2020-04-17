@@ -6,7 +6,7 @@ import StyledHome from './style'
 
 let Home = () => {
     let workspace = useWorkspace()
-    let {updateWorkspaceById} = useContext(WorkspaceContext)
+    let {updateWorkspaceById, asyncData} = useContext(WorkspaceContext)
 
     let handleSetName = event => {
         updateWorkspaceById(workspace.id, {name: event.target.value})
@@ -14,6 +14,7 @@ let Home = () => {
     return (
         <StyledHome>
             <div>
+                <div>Async Data : {JSON.stringify(asyncData)}</div>
                 <div>Workspace id : {workspace.id}</div>
                 <div>Workspace name : {workspace.name}</div>
                 <input value={workspace.name} onChange={handleSetName} />

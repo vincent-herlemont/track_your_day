@@ -1,0 +1,9 @@
+directive @client on FIELD
+
+type DirtyData {
+    tshuss: String!
+}
+
+type Query {
+    dirtyData: DirtyData!
+}

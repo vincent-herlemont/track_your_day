@@ -9,6 +9,7 @@ import {WorkspaceContext, WorkspaceContextProvider} from './context/WorkSpace'
 import Workspace from './components/route'
 import Home from './pages/home'
 import StyledApp from './StyledApp'
+import GraphQl from './components/graphql'
 
 let EntryRedirect = () => {
     let {firstWorkSpace} = useContext(WorkspaceContext)
@@ -18,20 +19,22 @@ let EntryRedirect = () => {
 function App() {
     return (
         <StyledApp>
-            <WorkspaceContextProvider>
-                <div className="App">
-                    <Router>
-                        <EntryRedirect path="/" />
-                        <AddWorkspace path="workspaces/add" />
-                        <Workspaces path="workspaces" />
-                        <Workspace path="workspaces/:workspaceId/">
-                            <Home path="/" />
-                            <AddTrack path="tracks/add" />
-                            <Explore path="explore" />
-                        </Workspace>
-                    </Router>
-                </div>
-            </WorkspaceContextProvider>
+            <GraphQl>
+                <WorkspaceContextProvider>
+                    <div className="App">
+                        <Router>
+                            <EntryRedirect path="/" />
+                            <AddWorkspace path="workspaces/add" />
+                            <Workspaces path="workspaces" />
+                            <Workspace path="workspaces/:workspaceId/">
+                                <Home path="/" />
+                                <AddTrack path="tracks/add" />
+                                <Explore path="explore" />
+                            </Workspace>
+                        </Router>
+                    </div>
+                </WorkspaceContextProvider>
+            </GraphQl>
         </StyledApp>
     )
 }

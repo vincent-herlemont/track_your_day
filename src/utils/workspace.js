@@ -29,4 +29,4 @@ const defaultWorkspaces = () => {
     return workspaces
 }
 
-export {newWorkspace, defaultWorkspaces}
+export {newWorkspace, defaultWorkspaces, loadWorkspaces}

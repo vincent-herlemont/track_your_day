@@ -6,7 +6,7 @@ import {newTracking} from '../traking'
 
 const useTrack = () => {
     const workspace = useWorkspace()
-    const {setWorkspaces} = useContext(WorkspaceContext)
+    const {setWorkspaces, writeDataToCache} = useContext(WorkspaceContext)
 
     const updateTracks = tracks => {
         setWorkspaces(prevState => {
@@ -18,6 +18,7 @@ const useTrack = () => {
                     return el
                 }
             })
+            writeDataToCache(prevState)
             return prevState
         })
     }
@@ -32,6 +33,7 @@ const useTrack = () => {
                     return el
                 }
             })
+            writeDataToCache(prevState)
             return prevState
         })
     }

@@ -1,16 +1,44 @@
 import React, {useState} from 'react'
 import {defaultWorkspaces, newWorkspace} from '../utils/workspace'
+import {useQuery} from '@apollo/react-hooks'
+import {GET_DIRTY_DATA} from '../components/graphql'
 
 export const WorkspaceContext = React.createContext(null)
 
 export const WorkspaceContextProvider = ({children}) => {
-    const [workspaces, setWorkspaces] = useState(defaultWorkspaces())
+    const [asyncData, setAsyncData] = useState({})
+
+    let writeDataToCache = workspaces => {
+        console.log(workspaces)
+        let data = {
+            tshuss: JSON.stringify(workspaces),
+        }
+        client.writeData({
+            data: {
+                dirtyData: {
+                    ...data,
+                    __typename: 'DirtyData',
+                },
+            },
+        })
+    }
+
+    let {data, client} = useQuery(GET_DIRTY_DATA)
+    if (!data?.dirtyData?.tshuss) {
+        writeDataToCache(defaultWorkspaces())
+    } else {
+        data = JSON.parse(data.dirtyData.tshuss)
+    }
+
+    const [workspaces, setWorkspaces] = useState(data)
 
     const store = {
         /// -----------------------------------------
         /// Workspaces
         workspaces,
         setWorkspaces,
+        asyncData,
+        writeDataToCache,
         firstWorkSpace: () => {
             return workspaces[0]
         },
@@ -19,14 +47,20 @@ export const WorkspaceContextProvider = ({children}) => {
         },
         updateWorkspaceById: (id, workspace) => {
             setWorkspaces(prevState => {
-                return prevState.map(el =>
+                prevState = prevState.map(el =>
                     el.id === id ? {...el, ...workspace} : el
                 )
+                writeDataToCache(prevState)
+                return prevState
             })
         },
         addWorkspace: workspace => {
             setWorkspaces(prevState => {
-                return prevState.concat([newWorkspace(workspaces, workspace)])
+                prevState = prevState.concat([
+                    newWorkspace(workspaces, workspace),
+                ])
+                writeDataToCache(prevState)
+                return prevState
             })
         },
     }
