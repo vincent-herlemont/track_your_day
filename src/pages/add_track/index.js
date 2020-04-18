@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
 import Nav from '../../components/nav'
 import useTrack from '../../utils/hooks/useTrack'
-import {navigate} from '@reach/router'
+import {useNavigate} from '@reach/router'
 import StyledAddTrack from './styled'
+import {ROUTE_BACK_TO_WORKSPACE} from '../../utils/route'
 
 let AddTrack = () => {
     let {
@@ -38,14 +39,15 @@ let AddTrack = () => {
         }
     }
 
+    const navigate = useNavigate()
+
     // Select track for start tracking
-    let handleStartTraking = trackId => {
+    let handleStartTracking = trackId => {
         return () => {
             startTracking(trackId, {})
-            navigate('..')
+            navigate(ROUTE_BACK_TO_WORKSPACE)
         }
     }
-
     return (
         <StyledAddTrack>
             <div>
@@ -54,7 +56,7 @@ let AddTrack = () => {
                     <ul>
                         {tracks.map(el => (
                             <li key={el.id}>
-                                <button onClick={handleStartTraking(el.id)}>
+                                <button onClick={handleStartTracking(el.id)}>
                                     {'<='}
                                 </button>
                                 ({el.id})
@@ -78,7 +80,7 @@ let AddTrack = () => {
                     </ul>
                 </div>
             </div>
-            <Nav links={[{to: '../../', title: 'back'}]} />
+            <Nav links={[{to: ROUTE_BACK_TO_WORKSPACE, title: 'back'}]} />
         </StyledAddTrack>
     )
 }

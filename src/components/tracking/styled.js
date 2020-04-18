@@ -1,4 +1,3 @@
-import Tracking from './index'
 import styled from 'styled-components'
 
 const StyledTracking = styled.div`

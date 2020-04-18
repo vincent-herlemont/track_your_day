@@ -1,0 +1,3 @@
+const ROUTE_BACK_TO_WORKSPACE = '../'
+
+export {ROUTE_BACK_TO_WORKSPACE}

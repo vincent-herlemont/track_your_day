@@ -3,7 +3,6 @@ import useWorkspace from '../../utils/hooks/useWorkspace'
 import Nav from '../../components/nav'
 import {StyledHome} from './style'
 import {StyledPageTitle} from '../style'
-import StyledTracking from '../../components/tracking/styled'
 import Tracking from '../../components/tracking'
 
 const Home = () => {
@@ -26,8 +25,14 @@ const Home = () => {
             <Nav
                 links={[
                     {to: '/workspaces', title: 'workspaces'},
-                    {to: workspace.id + '/tracks/add', title: 'add track'},
-                    {to: workspace.id + 'explore', title: 'explore'},
+                    {
+                        to: '/workspaces/' + workspace.id + '/w/tracks',
+                        title: 'add track',
+                    },
+                    {
+                        to: '/workspaces/' + workspace.id + '/w/explore',
+                        title: 'explore',
+                    },
                 ]}
             />
         </StyledHome>

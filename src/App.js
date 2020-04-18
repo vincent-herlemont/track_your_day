@@ -28,8 +28,8 @@ function App() {
                             <Workspaces path="workspaces" />
                             <Workspace path="workspaces/:workspaceId/">
                                 <Home path="/" />
-                                <AddTrack path="tracks/add" />
-                                <Explore path="explore" />
+                                <AddTrack path="w/tracks" />
+                                <Explore path="w/explore" />
                             </Workspace>
                         </Router>
                     </div>
