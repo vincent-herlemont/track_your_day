@@ -10,17 +10,17 @@ let Workspaces = () => {
         <StyledWorkspaces>
             <div>
                 <div>List workspace</div>
-                <ul>
+                <div>
                     {workspaces.map(el => {
                         return (
-                            <li key={el.id}>
+                            <div key={el.id}>
                                 <Link to={'/workspaces/' + el.id}>
                                     ({el.id}) | {el.name}
                                 </Link>
-                            </li>
+                            </div>
                         )
                     })}
-                </ul>
+                </div>
             </div>
             <Nav links={[{to: '/workspaces/add', title: 'add'}]} />
         </StyledWorkspaces>

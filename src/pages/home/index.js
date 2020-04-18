@@ -1,36 +1,27 @@
-import React, {useContext} from 'react'
-import {WorkspaceContext} from '../../context/WorkSpace'
+import React from 'react'
 import useWorkspace from '../../utils/hooks/useWorkspace'
 import Nav from '../../components/nav'
-import StyledHome from './style'
+import {StyledHome} from './style'
+import {StyledPageTitle} from '../style'
+import StyledTracking from '../../components/tracking/styled'
+import Tracking from '../../components/tracking'
 
-let Home = () => {
+const Home = () => {
     let workspace = useWorkspace()
-    let {updateWorkspaceById, asyncData} = useContext(WorkspaceContext)
-
-    let handleSetName = event => {
-        updateWorkspaceById(workspace.id, {name: event.target.value})
-    }
     return (
         <StyledHome>
+            <StyledPageTitle>{workspace.name}</StyledPageTitle>
             <div>
-                <div>Async Data : {JSON.stringify(asyncData)}</div>
-                <div>Workspace id : {workspace.id}</div>
-                <div>Workspace name : {workspace.name}</div>
-                <input value={workspace.name} onChange={handleSetName} />
-                <ul>
+                <div>
                     {workspace.trackings.map(el => {
                         let track = workspace.tracks.find(
                             track => track.id === el.trackId
                         )
                         return (
-                            <ul key={el.id}>
-                                <div>{track.title}</div>
-                                <pre>{JSON.stringify(el, 1, 0)}</pre>
-                            </ul>
+                            <Tracking key={el.id} track={track} tracking={el} />
                         )
                     })}
-                </ul>
+                </div>
             </div>
             <Nav
                 links={[

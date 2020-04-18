@@ -6,8 +6,6 @@ import {GET_DIRTY_DATA} from '../components/graphql'
 export const WorkspaceContext = React.createContext(null)
 
 export const WorkspaceContextProvider = ({children}) => {
-    const [asyncData, setAsyncData] = useState({})
-
     let writeDataToCache = workspaces => {
         console.log(workspaces)
         let data = {
@@ -37,7 +35,6 @@ export const WorkspaceContextProvider = ({children}) => {
         /// Workspaces
         workspaces,
         setWorkspaces,
-        asyncData,
         writeDataToCache,
         firstWorkSpace: () => {
             return workspaces[0]
