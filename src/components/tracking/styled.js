@@ -1,4 +1,6 @@
 import styled from 'styled-components'
+import {motion, useAnimation} from 'framer-motion'
+import React, {useEffect} from 'react'
 
 const StyledTracking = styled.div`
     display: flex;
@@ -24,6 +26,35 @@ const StyledTracking = styled.div`
     .dot {
         height: 50px;
     }
+
+    cursor: pointer;
 `
+
+const Dot = ({hover}) => {
+    const controls = useAnimation()
+    useEffect(() => {
+        if (hover) {
+            controls.start({scale: 2.5})
+        } else {
+            controls.start({scale: 1})
+        }
+    }, [hover])
+
+    return (
+        <StyledDot>
+            <motion.svg
+                animate={controls}
+                whileTap={{scale: 3.5}}
+                className="dot"
+                viewBox="0 0 50 50">
+                <circle cx="25" cy="25" r="5" />
+            </motion.svg>
+        </StyledDot>
+    )
+}
+
+const StyledDot = styled.div``
+
+export {Dot}
 
 export default StyledTracking

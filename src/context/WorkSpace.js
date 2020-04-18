@@ -7,7 +7,6 @@ export const WorkspaceContext = React.createContext(null)
 
 export const WorkspaceContextProvider = ({children}) => {
     let writeDataToCache = workspaces => {
-        console.log(workspaces)
         let data = {
             tshuss: JSON.stringify(workspaces),
         }

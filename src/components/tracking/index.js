@@ -1,18 +1,27 @@
-import React from 'react'
-import StyledTracking from './styled'
+import React, {useState} from 'react'
+import StyledTracking, {Dot} from './styled'
 
 const Tracking = ({tracking, track}) => {
-    console.log(tracking)
+    let [hover, setHover] = useState(false)
+
+    let handleToggleHover = () => {
+        if (!hover) {
+            setHover(true)
+        } else {
+            setHover(false)
+        }
+    }
+
     return (
-        <StyledTracking>
+        <StyledTracking
+            onMouseEnter={handleToggleHover}
+            onMouseLeave={handleToggleHover}>
             <div className="content">
                 <div className="title">{track.title}</div>
                 <div className="description">Description ...</div>
             </div>
             <div>
-                <svg className="dot" viewBox="0 0 50 50">
-                    <circle cx="25" cy="25" r="5" />
-                </svg>
+                <Dot hover={hover} />
             </div>
         </StyledTracking>
     )
