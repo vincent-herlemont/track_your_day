@@ -29,6 +29,8 @@ export const WorkspaceContextProvider = ({children}) => {
 
     const [workspaces, setWorkspaces] = useState(data)
 
+    console.log(workspaces)
+
     const store = {
         /// -----------------------------------------
         /// Workspaces

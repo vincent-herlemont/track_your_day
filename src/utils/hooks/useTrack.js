@@ -6,7 +6,9 @@ import {newTracking} from '../traking'
 
 const useTrack = () => {
     const workspace = useWorkspace()
-    const {setWorkspaces, writeDataToCache} = useContext(WorkspaceContext)
+    const {workspaces, setWorkspaces, writeDataToCache} = useContext(
+        WorkspaceContext
+    )
 
     const updateTracks = tracks => {
         setWorkspaces(prevState => {
@@ -23,18 +25,23 @@ const useTrack = () => {
         })
     }
 
-    const updateTrackings = trackings => {
-        setWorkspaces(prevState => {
-            prevState = prevState.map(el => {
-                if (workspace.id === el.id) {
-                    el.trackings = trackings(el.trackings)
-                    return el
+    const updateTrackings = tracking => {
+        setWorkspaces(ws => {
+            ws = ws.map(w => {
+                if (
+                    w.id === w.id &&
+                    !w.trackings.find(t => tracking.id === t.id)
+                ) {
+                    w.trackings = w.trackings.concat([tracking])
                 } else {
-                    return el
+                    w.trackings.map(t =>
+                        t.id === tracking.id ? {...t, ...tracking} : t
+                    )
                 }
+                return w
             })
-            writeDataToCache(prevState)
-            return prevState
+            writeDataToCache(ws)
+            return ws
         })
     }
 
@@ -56,11 +63,8 @@ const useTrack = () => {
             })
         },
         startTracking: (trackId, tracking) => {
-            updateTrackings(trackings => {
-                return trackings.concat([
-                    newTracking(trackings, trackId, tracking),
-                ])
-            })
+            tracking = newTracking(workspace.trackings, trackId, tracking)
+            updateTrackings(tracking)
         },
     }
 }
