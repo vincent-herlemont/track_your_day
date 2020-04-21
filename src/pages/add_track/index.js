@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 import Nav from '../../components/nav'
 import useTrack from '../../utils/hooks/useTrack'
-import {useNavigate} from '@reach/router'
 import StyledAddTrack from './styled'
 import {ROUTE_BACK_TO_WORKSPACE} from '../../utils/route'
 import Track from '../../components/track'

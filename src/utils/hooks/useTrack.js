@@ -6,36 +6,22 @@ import {newTracking} from '../traking'
 
 const useTrack = () => {
     const workspace = useWorkspace()
-    const {workspaces, setWorkspaces, writeDataToCache} = useContext(
-        WorkspaceContext
-    )
+    const {setWorkspaces, writeDataToCache} = useContext(WorkspaceContext)
 
-    const updateTracks = tracks => {
-        setWorkspaces(prevState => {
-            prevState = prevState.map(el => {
-                if (workspace.id === el.id) {
-                    el.tracks = tracks(el.tracks)
-                    return el
-                } else {
-                    return el
-                }
-            })
-            writeDataToCache(prevState)
-            return prevState
-        })
-    }
-
-    const updateTrackings = tracking => {
+    const updateWorkspaceBulk = (bulkName, bulk) => {
         setWorkspaces(ws => {
             ws = ws.map(w => {
-                if (
+                if (bulk instanceof Function) {
+                    w[bulkName] = bulk(w[bulkName])
+                } else if (
                     w.id === w.id &&
-                    !w.trackings.find(t => tracking.id === t.id)
+                    !w[bulkName].find(t => bulk.id === t.id)
                 ) {
-                    w.trackings = w.trackings.concat([tracking])
+                    w[bulkName] = w[bulkName].concat([bulk])
                 } else {
-                    w.trackings.map(t =>
-                        t.id === tracking.id ? {...t, ...tracking} : t
+                    console.log(bulk)
+                    w[bulkName] = w[bulkName].map(t =>
+                        t.id === bulk.id ? {...t, ...bulk} : t
                     )
                 }
                 return w
@@ -47,24 +33,21 @@ const useTrack = () => {
 
     return {
         tracks: workspace.tracks,
-        setTrackById: (id, track) => {
-            updateTracks(tracks => {
-                return tracks.map(el => (el.id === id ? {...el, ...track} : el))
-            })
+        setTrackById: track => {
+            updateWorkspaceBulk('tracks', track)
         },
         addTrack: track => {
-            updateTracks(tracks => {
-                return tracks.concat([newTrack(tracks, track)])
-            })
+            track = newTrack(workspace.tracks, track)
+            updateWorkspaceBulk('tracks', track)
         },
         removeTrackById: id => {
-            updateTracks(tracks => {
+            updateWorkspaceBulk('tracks', tracks => {
                 return tracks.filter(el => el.id !== id)
             })
         },
         startTracking: (trackId, tracking) => {
             tracking = newTracking(workspace.trackings, trackId, tracking)
-            updateTrackings(tracking)
+            updateWorkspaceBulk('trackings', tracking)
         },
     }
 }

@@ -9,7 +9,7 @@ const Track = ({track}) => {
 
     // Update title of track
     let handleSetTitle = event => {
-        setTrackById(track.id, {title: event.target.value})
+        setTrackById({id: track.id, title: event.target.value})
     }
 
     // TODO set color picker
