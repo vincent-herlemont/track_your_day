@@ -4,14 +4,19 @@ import useTrack from '../../utils/hooks/useTrack'
 import StyledAddTrack from './styled'
 import {ROUTE_BACK_TO_WORKSPACE} from '../../utils/route'
 import Track from '../../components/track'
+import {GithubPicker} from 'react-color'
+import ColorPicker from '../../components/color_picker'
 
 let AddTrack = () => {
     let {tracks, addTrack} = useTrack()
 
     // Add New Track
-    let [newTrack, setNewTrack] = useState({title: ''})
-    let handleNewTrack = event => {
-        setNewTrack({title: event.target.value})
+    let [newTrack, setNewTrack] = useState({title: '', color: '#ffffff'})
+    let handleChangeTitle = event => {
+        setNewTrack({...newTrack, title: event.target.value})
+    }
+    let handleChangeColor = color => {
+        setNewTrack({...newTrack, color: color})
     }
     let handleAddTrack = event => {
         event.preventDefault()
@@ -31,7 +36,11 @@ let AddTrack = () => {
                         <form onSubmit={handleAddTrack}>
                             <input
                                 value={newTrack.title}
-                                onChange={handleNewTrack}
+                                onChange={handleChangeTitle}
+                            />
+                            <ColorPicker
+                                value={newTrack.color}
+                                onChange={handleChangeColor}
                             />
                         </form>
                     </div>

@@ -35,7 +35,7 @@ const Track = ({track}) => {
     }
 
     return (
-        <StyledTrack>
+        <StyledTrack style={{backgroundColor: track.color}}>
             <button onClick={handleStartTracking}>{'<='}</button>
             <div className="title">
                 {editMode && (
